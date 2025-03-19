@@ -1,0 +1,98 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    env_file: .env.production
+    depends_on:
+      - redis-master
+      - redis-replica
+    restart: unless-stopped
+    volumes:
+      - ./config:/app/config
+      - ./uploads:/app/uploads
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 1G
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  redis-master:
+    image: redis:6-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-master-data:/data
+      - ./config/redis/redis.conf:/usr/local/etc/redis/redis.conf
+    command: redis-server /usr/local/etc/redis/redis.conf
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  redis-replica:
+    image: redis:6-alpine
+    depends_on:
+      - redis-master
+    volumes:
+      - redis-replica-data:/data
+    command: redis-server --slaveof redis-master 6379 --requirepass ${REDIS_PASSWORD}
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./config/nginx:/etc/nginx/conf.d
+      - ./client/build:/usr/share/nginx/html
+      - ./letsencrypt:/etc/letsencrypt
+    depends_on:
+      - app
+    restart: unless-stopped
+
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./config/prometheus:/etc/prometheus
+      - prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    restart: unless-stopped
+    ports:
+      - "9090:9090"
+
+  grafana:
+    image: grafana/grafana:latest
+    volumes:
+      - grafana-data:/var/lib/grafana
+    restart: unless-stopped
+    ports:
+      - "3001:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD:-admin}
+      - GF_USERS_ALLOW_SIGN_UP=false
+
+volumes:
+  redis-master-data:
+  redis-replica-data:
+  prometheus-data:
+  grafana-data:
