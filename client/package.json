@@ -2,6 +2,7 @@
   "name": "literail-client",
   "version": "1.0.0",
   "private": true,
+  "homepage": "https://lightiam.github.io/literail.dev",
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -12,7 +13,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -34,6 +37,8 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.4.21",
+    "gh-pages": "^6.3.0",
+    "netlify-cli": "^19.0.2",
     "postcss": "^8.5.3",
     "react-scripts": "5.0.1",
     "tailwindcss": "^3.0.2"
