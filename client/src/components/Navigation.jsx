@@ -8,7 +8,12 @@ const Navigation = () => {
         <div className="flex justify-between h-16">
           <div className="flex">
             <div className="flex-shrink-0 flex items-center">
-              <Link to="/" className="text-xl font-bold text-indigo-600">LiteRail.dev</Link>
+              <Link to="/" className="flex items-center">
+                <svg className="h-8 w-8 text-indigo-600" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M11 3.05V2a1 1 0 10-2 0v1.05A10 10 0 004.82 20a1 1 0 001 1h12.36a1 1 0 001-1 10 10 0 00-4.18-16.95V2a1 1 0 10-2 0v1.05A10 10 0 0011 3.05zm2 1.45V8a1 1 0 102 0V4.5a8 8 0 11-8 0V8a1 1 0 102 0V4.5a8 8 0 012 0z" />
+                </svg>
+                <span className="ml-2 text-xl font-bold text-indigo-600">LightRail.dev</span>
+              </Link>
             </div>
             <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
               <Link to="/" className="border-indigo-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
