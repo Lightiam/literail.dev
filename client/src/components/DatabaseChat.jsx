@@ -21,7 +21,7 @@ const DatabaseChat = () => {
     setMessages([
       {
         role: 'assistant',
-        content: 'Hello! I\'m your LiteRail database assistant. How can I help you today?'
+        content: 'Hello! I\'m your LightRail database assistant. How can I help you today?'
       }
     ]);
   }, []);

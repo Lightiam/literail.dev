@@ -17,7 +17,7 @@ const Home = () => {
               <span className="block text-indigo-600">modern applications</span>
             </h1>
             <p className="mt-3 max-w-md mx-auto text-base text-gray-500 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl">
-              LiteRail.dev provides all the backend services you need to build your product: a real-time database, authentication, storage, and AI-powered data assistant.
+              LightRail.dev provides all the backend services you need to build your product: a real-time database, authentication, storage, and AI-powered data assistant.
             </p>
             <div className="mt-5 max-w-md mx-auto sm:flex sm:justify-center md:mt-8">
               <div className="rounded-md shadow">
@@ -44,7 +44,7 @@ const Home = () => {
               Everything you need to build modern apps
             </p>
             <p className="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
-              LiteRail.dev combines the best tools and services into one simple platform.
+              LightRail.dev combines the best tools and services into one simple platform.
             </p>
           </div>
 
@@ -122,7 +122,7 @@ const Home = () => {
             <span className="block">Create your account today.</span>
           </h2>
           <p className="mt-4 text-lg leading-6 text-indigo-200">
-            Join thousands of developers building modern applications with LiteRail.dev.
+            Join thousands of developers building modern applications with LightRail.dev.
           </p>
           <Link
             to="/signup"
@@ -159,7 +159,7 @@ const Home = () => {
             </div>
           </nav>
           <p className="mt-8 text-center text-base text-gray-400">
-            &copy; 2025 LiteRail.dev. All rights reserved.
+            &copy; 2025 LightRail.dev. All rights reserved.
           </p>
         </div>
       </footer>

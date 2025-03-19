@@ -1,7 +1,7 @@
 {
-  "name": "literail-dev",
+  "name": "lightrail-dev",
   "version": "1.0.0",
-  "description": "LiteRail.dev with Redis - Production Deployment",
+  "description": "LightRail.dev with Redis - Production Deployment",
   "main": "server/index.js",
   "scripts": {
     "start": "node server/index.js",
