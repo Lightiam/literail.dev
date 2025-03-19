@@ -1,30 +1,29 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const { resetPassword, loading } = useAuth();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-    setLoading(true);
     
     try {
-      // This is a stub implementation - would connect to the auth API
-      console.log('Requesting password reset for:', email);
+      const result = await resetPassword(email);
       
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // Show success message
-      setSuccess(true);
+      if (result.success) {
+        // Show success message
+        setSuccess(true);
+      } else {
+        setError(result.error || 'Error requesting password reset. Please try again.');
+      }
     } catch (err) {
       setError('Error requesting password reset. Please try again.');
-    } finally {
-      setLoading(false);
     }
   };
 

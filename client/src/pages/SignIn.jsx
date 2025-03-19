@@ -1,33 +1,29 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 const SignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
+  const { signIn, loading } = useAuth();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-    setLoading(true);
     
     try {
-      // This is a stub implementation - would connect to the auth API
-      console.log('Signing in with:', email, password);
+      const result = await signIn(email, password);
       
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // Store token in localStorage
-      localStorage.setItem('token', 'sample-jwt-token');
-      
-      // Redirect to dashboard
-      window.location.href = '/dashboard';
+      if (result.success) {
+        // Redirect to AI Assistant page on successful login
+        navigate('/ai-assistant');
+      } else {
+        setError(result.error || 'Failed to sign in');
+      }
     } catch (err) {
       setError('Invalid email or password');
-    } finally {
-      setLoading(false);
     }
   };
 

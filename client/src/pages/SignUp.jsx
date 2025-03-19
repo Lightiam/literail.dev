@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
@@ -7,34 +8,31 @@ const SignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [displayName, setDisplayName] = useState('');
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const { signUp, loading } = useAuth();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-    setLoading(true);
     
     // Validate passwords match
     if (password !== confirmPassword) {
       setError('Passwords do not match');
-      setLoading(false);
       return;
     }
     
     try {
-      // This is a stub implementation - would connect to the auth API
-      console.log('Signing up with:', email, password, displayName);
+      const result = await signUp(email, password, displayName);
       
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // Show success message
-      setSuccess(true);
+      if (result.success) {
+        // Show success message
+        setSuccess(true);
+      } else {
+        setError(result.error || 'Error creating account. Please try again.');
+      }
     } catch (err) {
       setError('Error creating account. Please try again.');
-    } finally {
-      setLoading(false);
     }
   };
 
