@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/literail.dev/static/css/main.1ae26c45.css",
+    "main.js": "/literail.dev/static/js/main.2b5607cb.js",
+    "index.html": "/literail.dev/index.html",
+    "main.1ae26c45.css.map": "/literail.dev/static/css/main.1ae26c45.css.map",
+    "main.2b5607cb.js.map": "/literail.dev/static/js/main.2b5607cb.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.1ae26c45.css",
+    "static/js/main.2b5607cb.js"
+  ]
+}
